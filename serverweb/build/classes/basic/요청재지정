@@ -1,0 +1,35 @@
+<<요청재지정>>
+
+최초요청된 web application 파일이 실행된 후 응답이 되어야 하는데 처음 요청받은 web application에서 새롭게 다른 
+web application파일을 요청하는 것을 요청재지정이라 한다.
+보통 mvc패턴을 적용하기 위해 view을 분리한 후 컨트롤러에서 분리된 view가 응답되도록 작성할 때 사용하는 기술
+
+1. 요청재지정
+	1) sendRedirect
+	2) RequestDispatcher
+	
+2. sendRedirect
+	1)문법
+		HttpServletResponse의 sendRedirect 메소드를 이용해서 구현
+		response.sendRedirect("요청재지정할 리소스이 path")
+	
+	2)개요
+		요청재지정을 위한 방법으로  데이터를 공유하는 작업을 할 수 없다. 주로 로그인 아이디나 패스워드를 잘못했을 때 
+		로그인 페이지를 다시 보여주기 위한 방법등으로 많이 쓰임
+	3)실행흐름
+		sendRedirect를 이용해서 요청을 재지정하는 방법은 처음 요청된 리소스를 실행하고 클라이언트로 응답한 후에 재지정한 web application을 다시 요청하는 방식으로 처리된다.
+		
+	4) 특징
+	- 두번의 요청으로 응답되어지므로 데이터를 공유할수 없다.
+	- 새롭게 요청이 보내지는 것이므로 주소표시줄이 요청재지정한 리소스의 path로 변경된다.
+	
+	request,session,servletcontext ==> 데이터를 저장할 수 있는 곳 
+	requset는  데이터를 주고받고 없어져도 되는 것들 
+	
+3.forward
+클라이언트가 서블릿을 요청하면 서블릿이 실행되고 응답뷰로 바로 forward한다.
+이때 새로운 요청으로 view가 요청되는 것이 아니므로 데이터를 공유할 수 있다.
+한 번의 요청으로 두 개의 web application이 실행되므로 주소표시줄도 처음 요청된 서블릿의 path로 변경되지 않고 유지된다.
+
+	RequestDispatcher rd = request.getRequestDispatcher("요청할 application의 path")
+	rd.forward(request 객체, response객체)
