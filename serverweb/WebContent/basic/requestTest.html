@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 0427 실습 -->
+	<!-- 요청방식을 테스트-->
+	<!-- 1. get 방식으로 요청 -->
+	<h3><a href ="/serverweb/life.do">하이퍼링크로 요청하기 =GET방식</a></h3>
+	
+	<!-- 1. get 방식으로 요청 <2번째 방법>-->
+	
+	<form method = "get" action="/serverweb/life.do">
+	<h3>method를 생략하거나 get으로 정의하면 get방식으로 요청</h3>
+	아이디:<input type="text" name="id"/>
+	<input type="submit" value="로그인"/>
+	</form>
+	
+	<form method = "post" action="/serverweb/life.do">
+	<h3>method를 생략하거나 post으로 정의하면 post방식으로 요청</h3>
+	아이디:<input type="text" name="id"/>
+	<input type="submit" value="로그인"/>
+	</form>
+</body>
+</html>

@@ -1,0 +1,77 @@
+1.서블릿 작성 규칙
+ 0)표준화된 폴더 구조안에 서블릿 클래스가 저장되도록 작성
+  =>classes 폴더 
+ 1)public 클래스로 작성한다.
+ 2)서블릿 클래스를 상속받아야 한ㄷ.
+ 	server
+ 	   ^
+ 	   |
+  genericServlet
+  	   ^
+  	   |
+  HttpServelt
+  
+  3)서버가 자동으로 객체를 생성하고 메소드를 호출 (콜백)할 것이므로 서버가 인식하는 메소드를 오버라이딩
+  =>서버가 서블릿의 lifecycle을 관리
+  =>서블릿의 lifecycle과 연관된 메소드
+  -init : 서블릿이 초기화될때 호출되는 메소드
+  -service : 클라이언트의 요청을 처리해주는 메소드 -쓰레드로 동작
+  			요청 방식에 따라서 적절한 메소드를 호출 
+  -doGet :클라이언트보다 다른일을 처리하기 위한 메소드(get방식으로 요청했을 때 호출하는 메소드)
+  -dopost :클라이언트마다 다른일을 처리하기 위한 메소드(post방식으로 요청했을 때 호출되는 메소드)
+  -destroy : 서블릿객체가 소멸될때 호출 
+  				|_ 서블릿이 변경되었을 경우
+  					WAS가 재부팅
+  					context가 reload되는 경우
+ 
+ 4) 서버가 요청 url을 분석해서 실행해야 하는 서블릿이 어떤 클래스인지 찾을 수 있도록 미리 등록 
+ 	web.xml파일에 등록
+ 	=>실제로는 web.xml에 등록하지 안혹 어노테이션을 이용해서 작업
+ 	web.xml파일은 xml파일이므로 엘리먼트를 등록할때 작성규칙을 지켜서 정의해야하며 엘리먼트를 등록할 때 지켜야하는 작성규칙(엘리먼트의 순서, 정의해야할 필수 엘리먼트, 엘리먼트에 적용할 속성의
+ 	타입...)을 명시해 놓은 문서를 dtd라고 한다 
+ 	1> 서블릿 등록
+ 	<servlet>
+ 		<servlet-name> 서블릿의 별칭</servlet-name>
+ 		<servlet-class> 요청될 서블릿 클래스(패키지포함)</servlet-class>
+ 	</servlet>
+ 	
+ 	ex) FirstServlet을 first라는 서블릿 명으로 등록
+ 	<servlet>
+ 		<servlet-name> first</servlet-name>
+ 		<servlet-class>basic.FirstServlet(패키지포함)</servlet-class>
+ 	</servlet>
+ 	2> 서블릿매핑(요청 url 매핑)	**DTD 알아보기
+ 		- 웨에서 등록한 서블릿을 어떻게 요청할지 등록
+ 		<servlet-mapping>
+ 			<servlet-name> 위에서 등록한 서블릿명</servlet-name>
+ 			<url-pattern>요청할 서블릿의 url</url-pattern>
+ 		</servlet-mapping>
+ 		
+ 		ex) 위에서 등록한 first라는 이름의 서블릿 "first.html"로 요청
+ 		<servlet-mapping>
+ 			<servlet-name> first</servlet-name>
+ 			<url-pattern>/first.html</url-pattern>
+ 		</servlet-mapping>
+2. 서블릿 요청
+	1)Get 방식으로 요청
+	① 주소표시줄에 입력해서 요청
+	  => 테스트용으로 현업에서 이렇게 요청할 일은 절대 없다. 
+	  http://ip:port/context명/서블릿요청 url 
+	  
+	  ex)first.html로 매핑된 서블릿을 요청 
+		http://192.168.9.89:8088/serverweb/first.html
+이클립스에 저장된 위치 
+ C:\Users\kitri\OneDrive\iot_1st\webwork\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\serverweb\WEB-INF\classes\basic
+②하이퍼링크로 요청
+<a href="/context명/서블릿요청url"/>
+③<form>태그의 method 속성을 get으로 정의하거나 생략하고 submit버튼을 눌러서 요청하는 경우
+=> action속성에 정의한 서블릿을 get방식으로 요청하면서 <form></form> 사이의 모든 양식태그들의 name과 value를 서블릿으로 넘긴다 
+<form method = "get" action=""/> 
+	<input type="submit".../>
+</form>
+ 2)post 방식으로 요청
+ 	③<form>태그의 method 속성을 post으로 정의하거나 생략하고 submit버튼을 눌러서 요청하는 경우
+=> action속성에 정의한 서블릿을 post방식으로 요청하면서 <form></form> 사이의 모든 양식태그들의 name과 value를 서블릿으로 넘긴다 
+<form method = "post" action=""/> 
+	<input type="submit".../>
+</form>
