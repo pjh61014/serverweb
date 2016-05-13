@@ -46,7 +46,7 @@ public class DomParserTest01 {
 				//node의 속성과 속성 값을 탐색 
 				printAttInfo(node);
 				Element deptelement = (Element)node;
-				//System.out.println("***************하위 엘리먼트의 값을 출력 *********");
+				System.out.println("***************하위 엘리먼트의 값을 출력 *********");
 				String code = getText(deptelement, "code");
 				String name = getText(deptelement, "name");
 				String loc = getText(deptelement, "loc");
