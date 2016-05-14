@@ -10,7 +10,7 @@
   	   ^
   	   |
   HttpServelt
-  
+  ㅇㅇㅇ
   3)서버가 자동으로 객체를 생성하고 메소드를 호출 (콜백)할 것이므로 서버가 인식하는 메소드를 오버라이딩
   =>서버가 서블릿의 lifecycle을 관리
   =>서블릿의 lifecycle과 연관된 메소드
@@ -39,7 +39,7 @@
  	<servlet>
  		<servlet-name> first</servlet-name>
  		<servlet-class>basic.FirstServlet(패키지포함)</servlet-class>
- 	</servlet>
+ 	</servlet>ㅇㅇ
  	2> 서블릿매핑(요청 url 매핑)	**DTD 알아보기
  		- 웨에서 등록한 서블릿을 어떻게 요청할지 등록
  		<servlet-mapping>
